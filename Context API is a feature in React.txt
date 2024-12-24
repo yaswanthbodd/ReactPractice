@@ -1,0 +1,101 @@
+The Context API is a feature in React (a JavaScript library for building user interfaces) that provides a way to share data across the component tree without passing props manually at every level. It is useful for managing global state, such as themes, authentication, or user preferences, in a React application.
+
+How the Context API Works
+Creating Context: Use the React.createContext() function to create a Context object. It serves as a container for the data you want to share.
+
+Provider Component: The Context object includes a Provider component, which is used to wrap a part of your application. The Provider takes a value prop that contains the data you want to make available to its child components.
+
+Consuming Context: The data provided by the Provider can be accessed in child components using:
+
+The useContext Hook (recommended for functional components).
+The Context.Consumer component (less common in modern code).
+Step 1: Set Up the React App
+Open your terminal and create a new React app:
+npx create-react-app context-api-example
+cd context-api-example
+Start the development server:
+npm start
+
+Step 2: Create a Context
+File: src/context/ThemeContext.js
+import React, { createContext, useState } from "react";
+
+// Create the Context
+export const ThemeContext = createContext();
+
+// Create the Provider Component
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+
+  // Function to toggle the theme
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export default ThemeProvider;
+
+Step 3: Wrap the App with the Provider
+File: src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import ThemeProvider from "./context/ThemeContext"; // Import the Provider
+
+ReactDOM.render(
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>,
+  document.getElementById("root")
+);
+
+Step 4: Create a Themed Component
+File: src/components/ThemeSwitcher.js
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+
+const ThemeSwitcher = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext); // Consume the context
+
+  const appStyle = {
+    backgroundColor: theme === "light" ? "#ffffff" : "#333333",
+    color: theme === "light" ? "#000000" : "#ffffff",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+
+  return (
+    <div style={appStyle}>
+      <h1>{`Current Theme: ${theme}`}</h1>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </div>
+  );
+};
+
+export default ThemeSwitcher;
+
+Step 5: Update the App Component
+File: src/App.js
+import React from "react";
+import ThemeSwitcher from "./components/ThemeSwitcher";
+
+const App = () => {
+  return (
+    <div>
+      <ThemeSwitcher />
+    </div>
+  );
+};
+
+export default App;
+
+

@@ -1,0 +1,57 @@
+Real-Time Scenario and Problem Statement
+Scenario:
+You are working as a front-end developer for a streaming platform that needs a simple movie management tool for internal use. The tool is designed to help the content management team keep track of movies available on the platform. The goal is to create a dynamic, scalable application that displays a list of movies and allows team members to add new movies in real time. This application will utilize React's Context API to manage state efficiently across multiple components without the need for prop drilling.
+
+Problem Statement:
+Create a Movie Management Application using React and Context API to manage the state of a movie list. The app should meet the following requirements:
+
+Specifications:
+Core Features:
+Display Movies:
+
+A component to display the current list of movies with their details.
+Each movie should include:
+Title
+Genre
+Release Year
+If no movies are available, show an appropriate message.
+
+Add Movies:
+A form that allows users to add a new movie to the list.
+The form should include fields for:
+Movie Title (text input)
+Genre (text input)
+Release Year (number input)
+After submission, the new movie should be added dynamically to the movie list.
+State Management:
+Use React's Context API to manage the movie list state.
+The state should be accessible across components without passing props.
+Reusability and Modularity:
+Break down the app into multiple reusable components:
+MovieList: Displays the list of movies.
+AddMovieForm: Provides the interface for adding new movies.
+MovieProvider: Manages the shared state and functions.
+Styling:
+Use simple CSS or inline styles to make the app visually clear and user-friendly.
+Guide:
+1. Create the Context:
+Define a MovieContext that manages the movie list.
+Add functionality to:
+Add new movies to the list.
+Provide the movie list and the addMovie function to other components.
+2. Build the Components:
+MovieList Component:
+Displays the list of movies.
+Connects to MovieContext to fetch and display the movie list.
+AddMovieForm Component:
+Provides an input form for adding movies.
+Connects to MovieContext to access the addMovie function.
+3. Integrate the App:
+Wrap the application in the MovieProvider to make the shared state available.
+Example User Stories:
+Viewing the Movie List:
+
+As a user, I want to see a list of all available movies so that I can know what's available on the platform.
+Adding a New Movie:
+
+As a user, I want to add a new movie to the list by entering its details so that it appears dynamically on the page.
